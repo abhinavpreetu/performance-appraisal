@@ -1,0 +1,129 @@
+<div class="container-fluid" ng-controller="empCtrl">
+	<h2 class="centerHead">Employee Registration Form</h2>
+	<div id="addSome" style="left: 30px; top: 18px" ng-click="goBack()">
+		<i class="material-icons">reply</i>
+	</div>
+	<div
+		style="height: 70vh; overflow-y: auto; margin-top: 10px; overflow-x: hidden">
+		<form ng-submit="sbtForm(empForm.$valid)" name="empForm" novalidate>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-4">
+					<label for="fname">First Name: </label> <input type="text"
+						class="form-control" name="fname" id="fname"
+						placeholder="First Name" ng-model="employee.fname"
+						onkeypress="return ((event.charCode > 64 && event.charCode < 91)||(event.charCode > 96 && event.charCode < 123))"
+						ng-required="true"> <span class="error" ng-if="error.name">Employees
+						must have a first name</span>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-4">
+					<label for="lname">Last Name: </label> <input type="text"
+						class="form-control" name="lname" id="lname"
+						placeholder="Last Name" ng-model="employee.lname"
+						onkeypress="return ((event.charCode > 64 && event.charCode < 91)||(event.charCode > 96 && event.charCode < 123))">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-4">
+					<label for="email">Email:</label> <input type="text"
+						class="form-control" name="email" id="email" placeholder="Email"
+						ng-model="employee.email" email-err ng-required="true">
+					<div ng-if="empForm.email.$error.emailErr && empForm.$submitted">
+						<span class="error"> Enter a valid email address</span>
+					</div>
+					<div ng-if="error.duplicateEmail"><span class="error">Email Id already exists!</span></div>
+					<div ng-if="error.email">
+						<span class="error">Required for logging in</span>
+					</div>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-4">
+					<label for="designation">Designation:</label> <select
+						ng-model="employee.designation.desg" name="designation"
+						class="form-control" id="designation"
+						ng-options="desg.desg as desg.desg for desg in designation"
+						ng-required="true" ng-disabled="isBeingEdited">
+						<option value="" disabled>-- select designation --</option>
+					</select> <span class="error" ng-if="error.designation">Please select
+						a designation</span>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-4">
+					<label for="Contact">Contact:</label> <input type="text"
+						class="form-control" name="contact" id="contact"
+						placeholder="Contact" ng-model="employee.contact" maxlength="10"
+						minlength="10" ng-required="true"
+						onkeypress="return event.charCode >=48 && event.charCode<58">
+					<div ng-if="empForm.contact.$error.minlength && empForm.$submitted">
+						<span class="error"> Contact number should contain 10
+							digits</span>
+					</div>
+					<div ng-if="error.contact">
+						<span class="error">mandatory field</span>
+					</div>
+					<div ng-if="error.duplicateContact"><span class="error">This number already exists!</span></div>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-4">
+					<label for="role">Role:</label> <select ng-model="roleName.role"
+						name="role" class="form-control" id="role"
+						ng-options="role as role for role in roles" ng-required="true">
+						<option value="" disabled>-- select role --</option>
+					</select> <span class="error" ng-if="error.role ">This field is
+						mandatory</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-4">
+					<label for="birthDate">Date of Birth:</label> <input type="date"
+						ng-model="employee.birthDate" class="form-control"
+						name="birthDate" id="birthDate" ng-required="true"> <span
+						class="error" ng-if="error.birthDate">This field is
+						mandatory</span>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-4">
+					<label for="joinDate">Date of Joining:</label> <input type="date"
+						ng-model="employee.joinDate" class="form-control" name="joinDate"
+						id="joinDate" ng-required="true">
+					<div ng-if="error.joinDate">
+						<span class="error">This field is mandatory</span>
+					</div>
+					<div ng-if="error.date">
+						<span class="error">You were not born at the time you
+							joined. You moron!!</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-4">
+					<label for="password">Password:</label> <input type="password"
+						class="form-control" name="password" id="password"
+						placeholder="Password" ng-model="employee.password"
+						ng-minlength="8" ng-required="true" ng-disabled="isBeingEdited"> <span class="error"
+						ng-if="(empForm.password.$error.minlength || empForm.password.$error.maxlength) && empForm.$submitted">
+						The password should contain at least 8 letters</span> <span class="error"
+						ng-if="error.password">required password</span>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-4">
+					<label for="confPassword">Confirm Password:</label> <input
+						type="password" class="form-control" name="confPassword"
+						id="confPassword" placeholder="Confirm Password"
+						ng-required="true" ng-model="employee.confPassword" ng-disabled="isBeingEdited">
+					<div
+						ng-if="empForm.$submitted && (empForm.confPassword.$viewValue != empForm.password.$viewValue) ">
+						<span class="error"> Passwords do not match</span>
+					</div>
+					<div ng-if="error.confPassword">
+						<span class="error">required confirm password</span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-5 col-sm-3">
+					<button type="reset" class="btn btn-primary col-md-5">Reset</button>
+					<button type="submit"
+						class="btn btn-primary col-md-offset-2 col-md-5">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

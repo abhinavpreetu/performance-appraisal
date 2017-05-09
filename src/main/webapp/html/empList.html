@@ -1,0 +1,101 @@
+<style>
+	
+/* 	.addEmp{
+		position:absolute;
+		right: 118px;
+		top: 4px;
+		font-size: 24px;
+		color: #057a92
+	}
+	button>i:hover{
+		color: #757575
+	}
+	.addEmp:hover{
+		color: #757575
+	} */
+</style>
+<div class="container-fluid" ng-controller="empListCtrl">
+<h2 class="centerHead">Employee List</h2>
+<div style="margin: 40px auto " >
+	<div id="addSome" ng-click="addEmployee()"><i class="material-icons ">person_add</i></div>
+	<!-- <button type="button" class="btn" id="sbtBtn" ng-click="addEmployee()" style="position:absolute; right: 30px;top: 52px">
+	Add Employee</button> -->
+</div>
+<div class="table-responsive" style="overflow-y:auto;height: 70vh;border-top: 1px solid #ddd" >
+<table class="table table-striped table-bordered">
+<thead>
+	<tr class="row">
+		<th class="col-md-1">Id</th>
+        <th class="col-md-4">Name</th>
+        <th class="col-md-4">Email Id</th>
+        <th class="col-md-2">Contact</th>
+        <th class="col-md-1">Action</th>
+    </tr>
+</thead>
+<tbody >
+      <tr ng-repeat="emp in empList " class="row">
+		<td class="col-md-1">{{emp.empId}}</td>
+		<td class="col-md-4">{{emp.fname}} {{emp.lname}}</td>
+		<td class="col-md-4">{{emp.email}}</td>
+		<td class="col-md-2">{{emp.contact}}</td>
+		<td class="col-md-1">
+			<i class="material-icons cursorStyle" ng-click="viewEmployee($index)" data-toggle="modal"
+			data-target="#viewEmpDetails">open_in_new</i>
+			<i class="material-icons cursorStyle" ng-click="editEmpAdmin($index)">edit</i>
+		</td>
+      </tr>      
+</tbody>
+</table>
+</div>
+  <div class="modal" id="viewEmpDetails" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{viewEmp.fname}} {{viewEmp.lname}}</h4>
+        </div>
+        <div class="modal-body row">
+        <div class="col-md-7">
+          <h4 style="color: #057a92">Contact Information</h4>          
+          <div class="row">
+			<div class="col-md-5 dark">
+				<span>Email Id : </span><br>
+				<span>Contact : </span>
+			</div>
+			<div class="col-md-7">
+				<span>{{viewEmp.email}}</span><br>
+				<span>{{viewEmp.contact}}</span>
+			</div>        
+          </div>
+          <h4 style="color: #057a92">General Information</h4>
+          <div class="row">
+			<div class="col-md-5 dark">
+				<span>Designation : </span><br>
+				<span>Role : </span><br>
+				<span>Birth Date : </span><br>
+				<span>Join Date : </span>
+			</div>
+			<div class="col-md-7" >
+				<span>{{viewEmp.designation.desg}}</span><br>
+				<span>{{viewEmp.role[0].role}}</span><br>
+				<span>{{viewEmp.birthDate}}</span><br>
+				<span>{{viewEmp.joinDate}}</span>
+			</div>      
+          </div>            
+        </div>
+        <div class="panel panel-default col-md-4" style="padding: 0px" >
+		    <div class="panel-heading">Actions</div>
+		    <div class="panel-body cursorStyle" data-dismiss="modal" ng-click="editProfile()">
+	   		Edit Profile <i style="margin-top:0" class="material-icons md-24">edit</i></div>
+   			</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.labelStyle{
+	font-weight: bold;
+	margin-right: 10px;
+}
+th {
+    background-color: #ffffff;
+    color: #008080;
+    font-size: 15px;
+}
+td{
+	background-color:#fff;
+	font-size: 15px;
+}
+#noticeDiv{
+    border: 1px solid black;
+}
+.boxTab{
+	color: #fff;
+	text-decoration: none;
+    display: block;
+    height: 5vh;
+    background-color:#545454;
+    text-align: center;
+}
+.boxTab a:hover{
+	color: #fff;
+	text-decoration: none;
+	background-color: #3e3e3e;
+	transition: 0.9s background-color;
+}
+.boxTab a:focus{
+	text-decoration: none;
+	color: #fff;
+	background-color:#057a92;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 5px;
+    line-height: 1.42857143;
+    vertical-align: middle
+}
+.flexDivWrap{
+	height:70vh;
+	overflow-y:auto;
+	margin-top: 3%;
+	padding: 0
+}
+.noticeList{
+	display: block;
+}
+.pointerCursor{
+	cursor: pointer;
+}

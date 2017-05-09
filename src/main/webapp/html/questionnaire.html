@@ -1,0 +1,52 @@
+<style>
+	button.close1 {
+    padding: 0;
+    background: 0 0;
+    border: 0;
+}
+
+	.close1 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1; 
+    color: #000;
+    opacity: .4;
+}
+</style>
+
+<div class="container-fluid" ng-controller="questCtrl">
+	<h2 style="text-align: center">Questionnaire</h2>
+	<ol>
+		<li ng-repeat="quest in questions track by quest.questionId">
+			<button type="button" class="close1" ng-click="deleteQsn(quest)" data-dismiss="modal">&times;</button>
+			{{quest.question}}
+		</li>
+	</ol>
+
+	<form ng-submit="addQuestion()">
+	    <div class="row">
+	    <div class="form-group">
+	      	<label for="addQuest" class="col-md-3">Add Question :</label>
+	      	<div class="col-md-9">
+	        	<input type="text" class="form-control" ng-model="questionnaire.question" id="addQuest" placeholder="Enter question for {{questionnaire.desg.desg}}">
+	        </div>        
+	    </div>
+	    </div><br>
+	    <div class="row">
+        <div class="form-group">
+        	<label class="col-md-3" for="selectYesOrNo">Is it a Yes/No Question ? :</label>
+        	<div class="col-md-3">
+        		<select ng-model = "questionnaire.yesOrNo" class="form-control" id="selectYesOrNo">
+        			<option value="" selected disabled>-- Yes/No --</option>
+		        	<option value="false">false</option>
+		        	<option value="true">true</option>
+       		 	</select>
+        	</div>
+        </div></div><br>
+        <div class=" col-md-offset-3">
+        	<button type="submit" class="btn btn-primary col-md-3" >add</button>
+        </div>
+     </form>
+ </div>
+ 
+ 

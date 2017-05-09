@@ -1,0 +1,185 @@
+<style>
+	/* h5{
+		margin: 0
+	} */
+ 	hr{
+		margin: 5px 0px;
+		border-top: 1px solid #057a92
+	} 
+	.dark{
+		color: #111
+	}
+</style>
+<div class="container-fluid" ng-controller="profileCtrl">
+<div style="background-color:#0aadd0;margin:30px 15px 20px;padding: 5px;height: 80vh">
+	<h1 class="centerHead">{{emp.fname}} {{emp.lname}}</h1>
+<div style="background-color:#fff;height:67vh;padding:20px 40px">
+	<div class="col-md-3" >
+<img src="men-profile-img.gif" alt="noImage" width="200px" height="200px" style="box-shadow:-3px -1px 6px 0px #464646" >
+</div>
+<div class="col-md-offset-1 col-md-5" style="background-color:#fff;height:62vh">
+	<div class="row" style="padding:10px">
+	<h4 style="text-align:left;color:#057a92;margin-left:13px">Contact Information</h4>
+	<div class="col-md-5 dark">
+		<span>Email Id : </span><br>
+		<span>Contact : </span>
+	</div>
+	<div class="col-md-7">
+		<span>{{emp.email}}</span><br>
+		<span>{{emp.contact}}</span>
+	</div>
+	</div>
+	
+	<div class="row" style="padding: 5px 10px">
+	<h4 style="text-align:left;color:#057a92;margin-left:13px">General Information</h4>
+	<div class="col-md-5 dark">
+		<span>Designation : </span><br>
+		<span>Role : </span><br>
+		<span>Birth Date : </span><br>
+		<span>Join Date : </span>
+	</div>
+	<div class="col-md-7" >
+		<span>{{emp.designation.desg}}</span><br>
+		<span>{{emp.role[0].role}}</span><br>
+		<span>{{emp.birthDate}}</span><br>
+		<span>{{emp.joinDate}}</span>
+	</div>
+	</div>
+	
+	<div class="row" style="padding:10px;margin-top:10px;height: 25vh;overflow: auto">
+	<h4 style="text-align:left;color:#057a92;margin-left:13px">Additional Information</h4>
+	<div class="col-md-5 dark" >
+		<div>
+			<span>Project(s) : </span>
+		</div>
+	</div>
+	<div class="col-md-7">
+		<div ng-repeat="project in projects track by $index">
+			<span>{{project.name}}</span>
+		</div>
+	</div>
+	</div>
+</div>
+	<div class="panel panel-default col-md-2" style="padding: 0px">
+	    <div class="panel-heading">Actions</div>
+	    <div class="panel-body" class="cursorStyle">
+	    <div data-toggle="modal" class="cursorStyle" data-target="#editProfile" ng-click="resetEditProfile()">
+	    Edit Profile <i style="margin-top:0" class="material-icons md-24">edit</i></div></div>
+	    <div class="panel-body" >
+	    <div data-toggle="modal" class="cursorStyle" data-target="#editPassword">
+	    Edit Password <i style="margin-top:0" class="material-icons md-24">lock</i>
+	    </div>
+	    </div>
+    </div>
+  </div>
+  	</div>
+  	<div class="modal fade" id="editProfile" role="dialog">
+   	 <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{emp.name}}</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" novalidate name="editForm" ng-submit="editProfileFunc(editForm.$valid)">
+		    <div class="form-group">
+		      <label class="control-label col-sm-2" for="email">New Email:</label>
+		      <div class="col-sm-10">
+		        <input type="text" class="form-control" id="email" name="email" placeholder="new email" ng-model="editEmp.email"
+		         email-err ng-required="true">
+		         <div ng-if="editForm.email.$error.emailErr && editForm.$submitted"><span class="error">
+		       		 Enter a valid email address</span></div>
+		        <div ng-if="error.email"><span class="error">Required for logging in</span></div>
+		        <div ng-if="error.duplicateEmail"><span class="error">Email already exists</span></div>
+		      </div>		      
+		    </div>
+		    <div class="form-group">
+		      <label class="control-label col-sm-2" for="contact">New Contact:</label>
+		      <div class="col-sm-10">          
+		        <input type="text" class="form-control" id="contact" name="contact" placeholder="new contact" ng-model="editEmp.contact" 
+			        maxlength="10" minlength="10" ng-required="true" 
+					onkeypress="return event.charCode >=48 && event.charCode<58">
+			        <div ng-if="editForm.contact.$error.minlength && editForm.$submitted">
+			        <span class="error">Contact number should contain 10 digits</span></div>
+			        <div ng-if="error.contact"><span class="error">mandatory field</span></div>
+			        <div ng-if="error.duplicateContact"><span class="error">Contact already exists</span></div>
+		      </div>
+		    </div>
+		    <div class="form-group">        
+		      <div class="col-sm-offset-2 col-sm-10">
+		        <button type="submit" id="sbtBtn" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+  		</form>
+        </div>
+        <div class="modal-footer">      
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="modal fade" id="editPassword" role="dialog">
+   	 <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">{{emp.name}}</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" novalidate name="editPasswordForm" ng-submit="editPasswordFunc(editPasswordForm.$valid)">
+		    <div class="form-group">
+		      <label class="control-label col-md-2" for="oldPass">Old Password:</label>
+		      <div class="col-sm-10">
+		        <input type="password" class="form-control" id="oldPass" name="oldPass" placeholder="Enter old Password" 
+		        ng-model="oldPass" ng-required="true">
+		         <div ng-if="error.reqOldPass"><span class="error">required password</span></div>
+				 <div ng-if="error.oldPassword"><span class="error">Incorrect old password</span></div>		         
+		      </div>		      
+		    </div>
+		    <div class="form-group">
+		      <label class="control-label col-md-2" for="contact">New Password:</label>
+		      <div class="col-sm-10">          
+		        <input type="password"
+						class="form-control" name="password" id="password"
+						placeholder="Password" ng-model="editPass.password"
+						ng-minlength="8" ng-required="true"> 
+						<div ng-if="(editPasswordForm.password.$error.minlength || editPasswordForm.password.$error.maxlength) && editPasswordForm.$submitted">
+						<span class="error">The password should contain at least 8 letters</span> </div>
+						<div ng-if="error.password"><span class="error">required password</span></div>
+		      </div>
+		    </div>
+		    <div class="form-group">
+		    <label class="control-label col-md-2" for="confPassword">Confirm Password:</label>
+		    <div class="col-md-10">
+		    <input type="password" class="form-control" name="confPassword"
+						id="confPassword" placeholder="Confirm Password"
+						ng-required="true" ng-model="editPass.confPassword">
+					<div
+						ng-if="editPasswordForm.$submitted && (editPasswordForm.confPassword.$viewValue != editPasswordForm.password.$viewValue) ">
+						<span class="error"> Passwords do not match</span>
+					</div>
+					<div ng-if="error.confPassword">
+						<span class="error">required confirm password</span>
+					</div>
+		    </div>
+		    </div>
+		    <div class="form-group">        
+		      <div class="col-sm-offset-2 col-sm-10">
+		        <button type="submit" id="sbtBtn" class="btn btn-primary">Submit</button>
+		      </div>
+		    </div>
+  		</form>
+        </div>
+        <div class="modal-footer">      
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

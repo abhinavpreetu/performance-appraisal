@@ -1,0 +1,16 @@
+<div class="container-fluid" ng-controller="desigCtrl"> 
+	<h2 class="centerHead">Enter Designation</h2>
+	<form novalidate name="desigForm" ng-submit="submitForm(desigForm.$valid)" class="form-horizontal">
+		<div class="form-group">
+			<label for="name" class="col-md-2 control-label">Name of Designation: </label>
+			<div class="col-md-6">
+        		<input type="text" class="form-control col-md-6" name="name" id="name" placeholder="New Designation" 
+        		ng-model="designation.desg" ng-required="true">
+        		<span class="error" ng-show="error.desig">Must enter something</span>
+        	</div>
+		</div>
+		<div class="row">
+			<button type="submit" class="col-md-offset-4 col-md-2 btn btn-default btn-primary" >submit</button>
+		</div>
+	</form>
+</div>

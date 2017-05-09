@@ -1,0 +1,58 @@
+<div class="container-fluid" ng-controller="empDashCtrl">
+<h2 class="centerHead">Notifications</h2>
+	<div style="height:75vh; overflow-y:auto">
+	<div class="list-group" ng-repeat="(key,value) in empList track by $index" >
+		<a class="list-group-item pointerCursor" data-toggle="collapse" style="background-color: #057a92;" ng-if="value.length!=0" 
+		data-target="#{{$index}}">
+		   <h4 style="color: #fff" class="list-group-item-heading" >{{key}}</h4>	       
+		</a>
+		<div id="{{$index}}" class="panel-collapse collapse">
+	    <a ng-click="setReviewQsn(emp)" data-toggle="modal" style="padding-left: 3%; " data-target="#reviewModal" 
+	    class="list-group-item " ng-repeat="emp in value track by emp.reviewId">
+	    <div class="pointerCursor">
+	      <h4 style="color: #057a92" class="list-group-item-heading">{{emp.reviewedEmp.fname}} {{emp.reviewedEmp.lname}}</h4>
+	      <p class="list-group-item-text">{{emp.reviewedEmp.designation.desg}}</p></div>
+	    </a></div>
+    </div></div>
+	<div class="modal fade" id="reviewModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h2>{{reviewedRelation.reviewedEmp.fname}} {{reviewedRelation.reviewedEmp.fname}}</h2>
+		 <div>
+		 <form ng-submit="submitAnswer(ansForm.$valid)" name="ansForm" novalidate>
+		 <span class="error" ng-show="error">Answer every question please</span>
+		 	<div ng-repeat="question in qsnList track by question.questionId">
+			 	<div class="form-group" ng-if="!question.yesOrNo">
+			 		<label for="{{question.questionId}}">{{$index+1}}&nbsp;{{question.question}}</label>
+			 		<input id="{{question.questionId}}" ng-model="answer[question.questionId]" placeholder="enter your answer" type="text"
+			 		class="form-control" ng-required="true">			 		
+			 	</div>
+			 	<div class="form-group" ng-if="question.yesOrNo">
+			 		<label>{{$index+1}}&nbsp;{{question.question}}</label><br>
+			 		<label style="color:#000;font-weight: 500;margin-right: 20px"><input type="radio" value="yes" name="{{question.questionId}}"
+			 		ng-model="answer[question.questionId]" ng-required="true"> Yes</label>
+			 		<label style="color:#000;font-weight: 500"><input type="radio" value="no" name="{{question.questionId}}"
+			 		ng-model="answer[question.questionId]"> No</label>
+			 	</div>
+		 	</div>
+		 	<div class="form-group">
+		 		<button type="submit" class="btn btn-primary col-md-2 ">submit</button>
+		 		<button type="reset" class="btn btn-warning col-md-offset-1 col-md-2">reset</button>
+		 		<button type="button" class="btn btn-danger col-md-offset-5 col-md-2" data-dismiss="modal" >Close</button>
+		 	</div>
+		 </form>
+		 
+		 </div>
+          
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+</div>

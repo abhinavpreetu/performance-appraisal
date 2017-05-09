@@ -1,0 +1,11 @@
+.space{
+	padding: 0 ;
+	margin-bottom: 0px;
+}
+input {
+    margin-bottom: 0;
+}
+.error{
+	color: #f00;
+	font-size: .9em
+}

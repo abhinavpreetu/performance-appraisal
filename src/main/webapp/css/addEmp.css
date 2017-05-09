@@ -1,0 +1,21 @@
+#addSome{
+    position: absolute;
+    right: 30px;
+    top: 52px;
+    background-color: #057a92;
+    color: #fff;
+    padding: 6px 5px 3px 3px;
+    border-radius: 6px;
+    width: 42px;
+    text-align: center;
+    cursor: pointer;;
+}
+#addSome:hover{
+	background-color : rgba(193, 193, 193, 0.45);
+	color: #057a92;
+	transition: background-color .6s;	
+}
+.cursorStyle{
+	cursor: pointer;
+	margin: 5px
+}

@@ -1,0 +1,84 @@
+	<div class="container-fluid">
+		<h2 class="centerHead">Enter Project Details</h2>
+		<div id="addSome" style="left: 30px;top:18px" ng-click="goBack()"><i class="material-icons">reply</i></div>
+		<div style="height: 80vh;overflow-y:auto;overflow-x:hidden">
+		<form name="projectForm" ng-submit="submitForm(projectForm.$valid)" novalidate class="css-form">
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-7">
+					<label for="name">Name:</label> <input type="text"
+						class="form-control" ng-model="project.name" id="name" name="name" placeholder="Name" ng-required="true">
+						<span class="error" ng-if="error.name">Name is required</span>
+				</div><!-- projectForm.name.$error.required && projectForm.$submitted -->
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-7">
+					<label for="desc">Description:</label>
+					<textarea class="form-control" id="desc" name="desc" ng-model="project.desc" placeholder="Description" 
+					ng-required="true" ></textarea>
+					<span class="error" ng-if="error.desc">Description is required</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-3">
+						<label for="startDate">Start Date:</label><br>
+						<input type="date" class="form-control" ng-model="project.startDate" id="startDate" name="startDate" 
+						ng-required="true">
+						<span class="error" ng-if="error.startDate">Start Date is required is required</span>
+						</div>
+				<div class="form-group col-md-offset-1 col-md-3">
+					<label for="endDate">End Date:</label><br>
+					<input type="date" class="form-control" ng-model="project.endDate" id="endDate" name="endDate" ng-required="true">
+					<div ng-if="error.endDate"><span class="error">End Date is required</span></div>
+					<div ng-if="error.date"><span class="error">how can end date be earlier than start date??</span></div>
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-3">
+						<label for="projManager">Project Manager:</label><br>
+						<select ng-model="project.manager" id="manager" name="manager" class="form-control" 
+						ng-options="man as man.mngId.fname + ' '+ man.mngId.lname for man in managers" ng-required="true">						
+							<option value="" disabled>-- Select Manager --</option>
+						</select>
+						<span class="error" ng-if="error.manager">Manager is required</span>
+						</div>
+				<div class="form-group col-md-offset-1 col-md-3">
+					<label for="member1">Member 1</label><br>
+					<select ng-model="id1" id="member1" name="member1" class="form-control" 
+					ng-options="mem as mem.fname + ' '+ mem.lname for mem in members" ng-required="true">
+						<option value="" disabled>-- Select Employee --</option>
+					</select>
+					<div ng-if="error.id1"><span class="error">member 1 is required</span></div>
+					<div ng-if="error.member12 || error.member31"><span class="error">Members are same</span></div>
+				</div>
+				
+			</div>
+			<div class="row">
+				<div class="form-group col-md-offset-2 col-md-3">
+						<label for="member2">Member 2</label><br>
+						<select ng-model="id2" id="member2" name="member2" class="form-control" ng-required="true"
+						ng-options="mem as mem.fname + ' '+ mem.lname for mem in members">
+						<option value="" disabled>-- Select Employee --</option>
+					</select>
+					<div ng-if="error.id2"><span class="error">Member 2 is required</span></div>
+					<div ng-if="error.member12 || error.member23"><span class="error">Members are same</span></div>
+				</div>
+				<div class="form-group col-md-offset-1 col-md-3">
+					<label for="member3">Member 3</label><br>
+					<select ng-model="id3" id="member3" name="member3" class="form-control" ng-required="true"
+					ng-options="mem as mem.fname + ' '+ mem.lname for mem in members">
+						<option value="" disabled>-- Select Employee --</option>
+					</select>
+					<div ng-if="error.id3"><span class="error">Member 3 is required</span></div>
+					<div ng-if="error.member23 || error.member31"><span class="error">Members are same</span></div>
+				</div>
+				
+			</div>
+			<div class="row">
+			<div class="form-group col-md-offset-5 col-md-1">
+				<button type="submit" class="btn btn-primary form-control" id="test">Submit</button>
+			</div>
+			</div>
+		</form>
+		</div>
+	</div>
